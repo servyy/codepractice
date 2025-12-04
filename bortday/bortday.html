@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Soi 💜💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;}
+    body {
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, #cce7ff, #fdd6e5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.5s, box-shadow 0.5s;
+      overflow: hidden;
+    }
+    body.glow {
+      animation: pulseGlow 1s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { background: linear-gradient(to bottom right, #ffb6c1, #dda0dd); box-shadow: 0 0 20px 5px rgba(255,182,193,0.5) inset;}
+      100% { background: linear-gradient(to bottom right, #ffc0cb, #ba55d3); box-shadow: 0 0 50px 25px rgba(218,112,214,0.8) inset;}
+    }
+
+    .card {
+      background: rgba(255,255,255,0.85);
+      padding: 35px;
+      border-radius: 25px;
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    h1 {font-size: 28px; color: #ff5c8d; margin-bottom: 10px; display: none;}
+    .sub {color: #444; margin-bottom: 20px; font-size: 14px;}
+    .cake {font-size: 70px; cursor: pointer; margin: 20px 0; transition: transform 0.2s; display: inline-block;}
+    .cake:hover {transform: scale(1.1);}
+    .cake.jump {animation: jumpCake 0.5s ease;}
+    @keyframes jumpCake {0% { transform: translateY(0); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0); }}
+    .message-box {margin-top: 20px; display: none; background: #f1f9ff; padding: 20px; border-radius: 15px; color: #333; font-size: 14px; min-height: 60px; position: relative; z-index: 2;}
+    .frog-zone {margin-top: 20px; font-size: 28px; min-height: 40px;}
+    .frog-zone span.jump {animation: jumpFrog 0.5s ease; display: inline-block;}
+    @keyframes jumpFrog {0% { transform: translateY(0); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0); }}
+    .from {margin-top: 25px; font-style: italic; color: #666;}
+    .sparkle {position: absolute; width: 8px; height: 8px; background: yellow; border-radius: 50%; opacity: 0; pointer-events: none; animation: sparkleAnim 1s linear infinite;}
+    @keyframes sparkleAnim {0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(0.5); opacity: 0; }}
+    .letter-btn {display:none; margin-top: 15px; padding: 10px 20px; border:none; border-radius:20px; background:#ff5c8d; color:white; cursor:pointer; transition:0.3s;}
+    .letter-btn:hover {background:#ff3c70;}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 id="birthdayTitle">Happy Birthday, Soi 🎉</h1>
+    <p class="sub">Click the cake for a surprise 🐸</p>
+    <div class="cake" onclick="showSurprise()">🎂</div>
+    <div id="frogZone" class="frog-zone"></div>
+    <div id="messageBox" class="message-box"></div>
+    <button id="letterBtn" class="letter-btn" onclick="openLetter()">Open Your Birthday Letter</button>
+    <div class="from">— rook</div>
+  </div>
+
+  <script>
+    let resetTimeout;
+    let typingInterval;
+
+    function typeMessage(element, message, speed = 50) {
+      clearInterval(typingInterval);
+      element.innerHTML = "";
+      let i = 0;
+      typingInterval = setInterval(() => {
+        element.innerHTML += message.charAt(i);
+        i++;
+        if (i >= message.length) clearInterval(typingInterval);
+      }, speed);
+    }
+
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * window.innerWidth + 'px';
+      sparkle.style.top = Math.random() * window.innerHeight + 'px';
+      sparkle.style.setProperty('--x', (Math.random()*100-50) + 'px');
+      sparkle.style.setProperty('--y', (Math.random()*100-50) + 'px');
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1000);
+    }
+
+    function showSurprise() {
+      const frogs = ["🐸","🐸","🐸","🐸"];
+      const frogZone = document.getElementById("frogZone");
+      const messageBox = document.getElementById("messageBox");
+      const cake = document.querySelector('.cake');
+      const body = document.body;
+      const title = document.getElementById('birthdayTitle');
+      const letterBtn = document.getElementById('letterBtn');
+
+      frogZone.innerHTML = "";
+      messageBox.style.display = 'block';
+      letterBtn.style.display = 'none';
+      title.style.display = 'block';
+
+      clearTimeout(resetTimeout);
+      resetTimeout = setTimeout(resetSurprise, 13000);
+
+
+      cake.classList.add('jump');
+      setTimeout(() => cake.classList.remove('jump'), 500);
+
+ 
+      frogZone.innerHTML = frogs.map(f => `<span class="jump">${f}</span>`).sort(() => Math.random() - 0.5).join(' ');
+
+    
+      const message = "“Of course I missed you... that’s why I'm here to greet you happy birthday. And I know you hated frogs… but you should learn how to love ’em. Accept this frog okeh 🐸🐸🐸”";
+      typeMessage(messageBox, message, 50);
+
+      body.classList.add('glow');
+      for (let i=0;i<15;i++) createSparkle();
+
+  
+      setTimeout(() => {
+        letterBtn.style.display = 'inline-block';
+      }, 2000);
+    }
+
+    function resetSurprise() {
+      document.getElementById("frogZone").innerHTML = "";
+      document.getElementById("messageBox").style.display = "none";
+      document.getElementById("birthdayTitle").style.display = "none";
+      document.getElementById("letterBtn").style.display = "none";
+      document.body.classList.remove('glow');
+    }
+
+    function openLetter() {
+      window.location.href = "letter.html";
+    }
+  </script>
+</body>
+</html>

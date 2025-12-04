@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Birthday Letter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      min-height: 100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(to bottom right, #ffd1dc, #dcb0ff);
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 🌷 Tulips */
+    .tulip {
+      position: absolute;
+      bottom: 0;
+      width: 18px;
+      height: 220px;
+      background: linear-gradient(to top, #1e7f3b, #4be38b);
+      border-radius: 20px;
+      animation: sway 6s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+      z-index: 1;
+    }
+    .tulip::before { content: ""; position: absolute; bottom: 190px; left: 50%; transform: translateX(-50%); width: 70px; height: 80px; background: linear-gradient(to top, #ff4f91, #ff9ac2); border-radius: 45% 45% 35% 35%; }
+    .tulip::after { content: ""; position: absolute; bottom: 205px; left: 50%; transform: translateX(-50%); width: 35px; height: 70px; background: linear-gradient(to top, #ff6fae, #ffc1dc); border-radius: 50% 50% 35% 35%; }
+
+    .tulip:nth-child(1) { left: 10%; height: 240px; animation-delay: 0s; }
+    .tulip:nth-child(2) { left: 25%; height: 210px; animation-delay: 1s; }
+    .tulip:nth-child(3) { right: 25%; height: 250px; animation-delay: 0.6s; }
+    .tulip:nth-child(4) { right: 10%; height: 230px; animation-delay: 1.4s; }
+    @keyframes sway { 0% { transform: rotate(-3deg); } 100% { transform: rotate(3deg); } }
+
+    /* ✨ Glow wrapper */
+    .glow-wrapper {
+      position: relative;
+      border-radius: 35px;
+      padding: 10px;
+      animation: pulseGlow 3s infinite alternate;
+      background: radial-gradient(circle, rgba(255,182,193,0.45), rgba(218,112,214,0.15));
+      z-index: 5;
+    }
+    @keyframes pulseGlow { 0% { box-shadow: 0 0 25px rgba(255,182,193,0.6); } 100% { box-shadow: 0 0 65px rgba(218,112,214,0.9); } }
+
+    /* 💌 Letter card */
+    .letter-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(255,245,250,0.9));
+      padding: 50px;
+      max-width: 650px;
+      width: 90%;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+      line-height: 1.8;
+      letter-spacing: 1px;
+      font-size: 18px;
+      color: #333;
+      font-family: 'Playfair Display', serif;
+      border-radius: 28px;
+      text-align: left;
+      z-index: 10;
+      position: relative;
+    }
+    h1 { text-align:center; color:#ff5c8d; font-size:32px; margin-bottom:20px; font-weight:600; }
+    p { margin-bottom:18px; }
+    .back-btn { display:block; margin:25px auto 0; padding:10px 22px; border:none; border-radius:25px; background: linear-gradient(to right, #ff5c8d, #ff77a9); color:white; cursor:pointer; transition:0.3s; font-size:14px; }
+    .back-btn:hover { background: linear-gradient(to right, #ff3c70, #ff6090); }
+
+    /* MOBILE */
+    @media (max-width:480px){
+      .letter-card { padding:35px; font-size:16px; }
+      h1 { font-size:26px; margin-bottom:15px; }
+      .tulip { width: 12px; }
+      .tulip::before { width:50px; height:60px; bottom:150px; }
+      .tulip::after { width:25px; height:50px; bottom:165px; }
+      .back-btn { font-size:13px; padding:8px 18px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tulip"></div>
+  <div class="tulip"></div>
+  <div class="tulip"></div>
+  <div class="tulip"></div>
+
+  <div class="glow-wrapper">
+    <div class="letter-card">
+      <h1>Happy Birthday, Soi 🎉</h1>
+      <p>Happy birthday, Soi. I don’t really know how to say things properly, but I hope today makes you smile a little more than usual.</p>
+      <p>I still carry quiet fragments of the moments we shared, not as something heavy, but as something gentle that stayed.</p>
+      <p>I’m sorry for the things I did wrong. I truly am. And without saying too much, just know I’ll always quietly wish you well wherever life takes you.</p>
+      <p style="text-align:right;">~ rook</p>
+      <button class="back-btn" onclick="goBack()">Back to Surprise</button>
+    </div>
+  </div>
+
+  <script>
+    function goBack(){ window.location.href = "bortday.html"; }
+  </script>
+</body>
+</html>
